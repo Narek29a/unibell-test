@@ -1,9 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import {AudioPortfolioComponent} from "./components/audio-portfolio/audio-portfolio.component";
+import {AudioService} from "./services/audio.service";
 
 describe('AppComponent', () => {
+  const spyAudioService = jasmine.createSpyObj('AudioService', ['getAll']);
   beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent]
+    declarations: [AppComponent,AudioPortfolioComponent],
+    providers: [
+      {
+        provide: AudioService, useValue: spyAudioService
+      }
+    ],
   }));
 
   it('should create the app', () => {
@@ -12,16 +20,5 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'unibell-test'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('unibell-test');
-  });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('unibell-test app is running!');
-  });
 });

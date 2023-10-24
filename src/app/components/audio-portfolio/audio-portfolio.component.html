@@ -1,0 +1,25 @@
+<div class="table-content">
+  <table mat-table [dataSource]="audioItems$" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fileName">
+      <th mat-header-cell *matHeaderCellDef>File Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.fileName}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr class="data-row" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="playAudio(row)"></tr>
+  </table>
+</div>
+<ng-container *ngIf="selectedAudioItem">
+  <audio controls #audioPlayer *ngIf="readyToPlay">
+    <source [src]="'assets/audio/files/'+selectedAudioItem">
+  </audio>
+</ng-container>
